@@ -13,9 +13,12 @@ const TaskTable = ({ tasks, toggleTask, showCompleted = false }) => {
   };
   return (
     <div>
-      <table>
+      <table className="table table-dark table-striped table-bordered border-secondary">
         <thead>
-          <tr>Tareas</tr>
+          <tr className="table-primary">
+            <th>Tareas</th>
+          </tr>
+          
         </thead>
         <tbody>{taskTableRows(showCompleted)}</tbody>
       </table>

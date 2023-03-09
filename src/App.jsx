@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import Footer from "./componentes/Footer";
+
+// import "./App.css";
 
 import TaskCreator from "./componentes/TaskCreator";
 import TaskTable from "./componentes/TaskTable";
 import VisibilityControl from "./componentes/VisibilityControl";
+
 function App() {
   const [tasksItems, setTasksItems] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
@@ -16,11 +18,11 @@ function App() {
     }
   }, []);
 
-  const cleanTasks = () =>{
-    setTasksItems(tasksItems.filter(task => !task.done))
-    setShowCompleted(false)
-  }
- 
+  const cleanTasks = () => {
+    setTasksItems(tasksItems.filter((task) => !task.done));
+    setShowCompleted(false);
+  };
+
   function createNewTask(taskName) {
     if (!tasksItems.find((task) => task.name === taskName)) {
       // comprueba que no exista el nombre de la tarea  para añadir la nueva tarea al arreglo
@@ -42,26 +44,29 @@ function App() {
   }, [tasksItems]);
 
   return (
-    <div className="App">
-      <h1>app tareas</h1>
+    <div className="App bg-dark vh-100 text-white ">
+      <div className="container p-4 col-md-4 offset-md-4">
+        <div className="text-center">
+          <h1 className="display-2 mb-5">Mis tareas 📖</h1>
+        </div>
 
-      <TaskCreator createNewTask={createNewTask} />
-      <TaskTable tasks={tasksItems} toggleTask={toggleTask} />
-      <VisibilityControl
-      isChecked ={showCompleted}
-      setShowCompleted={(checked) => setShowCompleted(checked)}
-      cleanTasks ={cleanTasks}
-      />
-
-      
-
-      {showCompleted == true && (
-        <TaskTable
-          tasks={tasksItems}
-          toggleTask={toggleTask}
-          showCompleted={true}
+        <TaskCreator createNewTask={createNewTask} />
+        <TaskTable tasks={tasksItems} toggleTask={toggleTask} />
+        <VisibilityControl
+          isChecked={showCompleted}
+          setShowCompleted={(checked) => setShowCompleted(checked)}
+          cleanTasks={cleanTasks}
         />
-      )}
+
+        {showCompleted == true && (
+          <TaskTable
+            tasks={tasksItems}
+            toggleTask={toggleTask}
+            showCompleted={true}
+          />
+        )}
+      </div>
+      <Footer/>
     </div>
   );
 }
